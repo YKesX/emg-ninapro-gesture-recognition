@@ -16,7 +16,7 @@ def get_1d_cnn_model(input_shape, num_classes):
         layers.Conv1D(filters=256, kernel_size=3, activation='relu'),
         layers.GlobalAveragePooling1D(),
 
-        # --- Sınıflandırma (Classification) ---
+        # --- (Classification) ---
         layers.Dense(128, activation='relu'),
         layers.Dropout(0.5),
         layers.Dense(num_classes, activation='softmax')
@@ -33,17 +33,17 @@ def get_1d_cnn_model(input_shape, num_classes):
 def get_cnn_bilstm_model(input_shape, num_classes):
 
     model = models.Sequential([
-        # Blok 1
+        # Feature Extraction (CNN)
         layers.Conv1D(filters=64, kernel_size=3, activation='relu', padding='same', input_shape=input_shape),
         layers.MaxPooling1D(pool_size=2),
         
         layers.Conv1D(filters=128, kernel_size=3, activation='relu', padding='same'),
         layers.MaxPooling1D(pool_size=2),
 
-        # Blok 2
+        # Temporal Learning (BiLSTM)
         layers.Bidirectional(layers.LSTM(64, return_sequences=False)),
 
-        # Blok 3
+        # Classification Head
         layers.Dense(64, activation='relu'),
         layers.Dropout(0.5),
         layers.Dense(num_classes, activation='softmax')
@@ -57,3 +57,4 @@ def get_cnn_bilstm_model(input_shape, num_classes):
     )
 
     return model
+
