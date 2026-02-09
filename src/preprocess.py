@@ -73,9 +73,9 @@ class EMGPreprocessor:
             # Bu etiketin pencere içindeki oranı ne? (Örn: 200 verinin 180'i aynı mı?)
             purity = counts[most_common_label] / len(window_labels)
             
-            # Eğer pencerenin %70'i aynı hareket değilse, bu bir geçiş anıdır.
+            # Eğer pencerenin %60'i aynı hareket değilse, bu bir geçiş anıdır.
             # Veriyi kirletmemek için bu pencereyi EĞİTİME ALMA (Atla).
-            if purity < 0.70: 
+            if purity < 0.6: 
                 continue 
             # -----------------------------------------------
 
