@@ -56,17 +56,30 @@ class EMGPreprocessor:
         
         length = len(emg_data)
         
-        # Etiketler bazen (N,1) formatında gelir, düzleştirelim (flatten)
-        labels = labels.flatten()
+        # Etiketler bazen (N,1) formatında gelir, düzleştirelim ve integer yapalım
+        labels = labels.flatten().astype(int)
         
         for i in range(0, length - window_samples, step_samples):
             window_data = emg_data[i : i + window_samples]
             window_labels = labels[i : i + window_samples]
             
-            # Pencere içindeki en yaygın etiketi bul (Majority Vote)
-            most_common_label = np.bincount(window_labels).argmax()
+            # Pencere içindeki etiketlerin dağılımını say
+            counts = np.bincount(window_labels)
             
-            # Sadece hedeflediğimiz hareketleri al (0-12 arası gibi)
+            # En çok tekrar eden etiketi bul
+            most_common_label = counts.argmax()
+            
+            # --- YENİ EKLENEN GÜVENLİK (PURITY) KONTROLÜ ---
+            # Bu etiketin pencere içindeki oranı ne? (Örn: 200 verinin 180'i aynı mı?)
+            purity = counts[most_common_label] / len(window_labels)
+            
+            # Eğer pencerenin %70'i aynı hareket değilse, bu bir geçiş anıdır.
+            # Veriyi kirletmemek için bu pencereyi EĞİTİME ALMA (Atla).
+            if purity < 0.70: 
+                continue 
+            # -----------------------------------------------
+
+            # Sadece hedeflediğimiz hareketleri al (0-12 arası)
             if most_common_label < self.num_classes:
                 X.append(window_data)
                 y.append(most_common_label)
@@ -133,5 +146,4 @@ if __name__ == "__main__":
             print(" UYARI: Dosyada etiket (stimulus) verisi bulunamadı.")
     else:
         print(" HATA: EMG verisi okunamadı.")
-
 
