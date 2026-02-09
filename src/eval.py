@@ -12,7 +12,7 @@ class EvalConfig:
     NUM_CLASSES = 13
 
 def load_test_data():
-    print("Test verisi hazırlanıyor...")
+    print("Preparing test data...")
     
     x_path = 'data/processed/X_train.npy'
     y_path = 'data/processed/y_train.npy'
@@ -28,21 +28,21 @@ def load_test_data():
         _, X_test, _, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
         y_test_encoded = tf.keras.utils.to_categorical(y_test, EvalConfig.NUM_CLASSES)
         
-        print(f"Test Verisi Hazır: {X_test.shape}")
+        print(f"Test Data Ready: {X_test.shape}")
         return X_test, y_test, y_test_encoded
     except Exception as e:
-        print(f"HATA: Veri yüklenemedi. {e}"); return None, None, None
+        print(f"Failed to load data. {e}"); return None, None, None
 
 def load_model(model_path):
     try:
         model = tf.keras.models.load_model(model_path)
-        print("Model yüklendi.")
+        print("Model loaded successfully.")
         return model
     except:
-        print("Model dosyası bulunamadı."); return None
+        print("ERROR: Model file not found."); return None
 
 def evaluate_model(model, X_test, y_test, y_test_encoded, model_name="1d_cnn"):
-    print(f"\nDEĞERLENDİRME: {model_name}")
+    print(f"\nEVALUATION: {model_name}")
     y_pred_proba = model.predict(X_test, verbose=0)
     y_pred = np.argmax(y_pred_proba, axis=1)
     
@@ -52,7 +52,7 @@ def evaluate_model(model, X_test, y_test, y_test_encoded, model_name="1d_cnn"):
     
     print(f"   Accuracy: {acc*100:.2f}%")
     print(f"   Macro F1: {macro_f1:.4f}")
-    print("\nRapor:\n", classification_report(y_test, y_pred, zero_division=0))
+    print("\nClassification Report:\n", classification_report(y_test, y_pred, zero_division=0))
     
     return {'accuracy': acc, 'macro_f1': macro_f1, 'confusion_matrix': cm, 'y_pred': y_pred, 'y_test': y_test}
 
@@ -60,7 +60,7 @@ def plot_confusion_matrix(cm, model_name="1d_cnn"):
     plt.figure(figsize=(10,8))
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
     plt.title(f'Confusion Matrix - {model_name}')
-    plt.xlabel('Tahmin'); plt.ylabel('Gerçek')
+    plt.xlabel('Predicted'); plt.ylabel('Actual')
     plt.show()
 
 def evaluate_single_model(model_name="1d_cnn"):
@@ -78,3 +78,4 @@ def evaluate_single_model(model_name="1d_cnn"):
 if __name__ == "__main__":
 
     evaluate_single_model("1d_cnn")
+
