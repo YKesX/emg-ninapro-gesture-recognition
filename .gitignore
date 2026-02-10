@@ -4,6 +4,11 @@ __pycache__/
 *$py.class
 
 # Distribution / packaging
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
 .Python
 build/
 develop-eggs/
@@ -44,6 +49,17 @@ coverage.xml
 .python-version
 
 # Environments
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Data files
+*.npy
+*.npz
+*.h5
+*.hdf5
+*.keras
+
+# Environment
 .env
 .venv
 env/
@@ -53,6 +69,8 @@ env.bak/
 venv.bak/
 
 # IDEs
+
+# IDE
 .vscode/
 .idea/
 *.swp
