@@ -1,5 +1,3 @@
-# Electromyography(EMG) Hand Gesture Recognition for Prosthetic Control
-![Banner](https://github.com/user-attachments/assets/e6bd554f-0c2d-4894-bba4-ea843808ad7f)
 
  - [What is EMG Gesture Recognition ?](#What-is-EMG-Gesture-Recognition-?)
  - [Why EMG Gesture Recognition Matters ?](#Why-EMG-Gesture-Recognition-Matters-?)
@@ -81,3 +79,10 @@ pip install jupyter
 ```sh
 jupyter notebook
 ```
+
+
+### Dataset
+
+We used the NinaPro DB1 dataset for EMG gesture recognition.
+Link: https://www.nina-pro.org/databases/db1/
+Citation: C. Atzori, A. Gijsberts, C. Castellini, B. Caputo, F. Hager, et al., "Electromyography data for non-invasive naturally-controlled robotic hand prostheses," Scientific Data, vol. 1, Article 140053, 2014, doi: 10.1038/sdata.2014.53.
