@@ -1,3 +1,4 @@
+![Banner](https://github.com/user-attachments/assets/b9e3af0f-fa1a-443b-b5bc-5c2427ba7602)
 
  - [What is EMG Gesture Recognition ?](#What-is-EMG-Gesture-Recognition-?)
  - [Why EMG Gesture Recognition Matters ?](#Why-EMG-Gesture-Recognition-Matters-?)
