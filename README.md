@@ -19,20 +19,65 @@ When the neuromuscular system transmits electrical signals to contract muscles f
 >  **Accessibility**: Empowers individuals with limited mobility or motor impairments to control digital devices using even faint muscle signals.
 
 ## Setup
+
 ### Windows
-#### Clone the repository
+##### Clone the repository
 ```sh
-git clone https://github.com/YKesX/emg-ninapro-gesture-recognition.gitcd emg-ninapro-gesture-recognition
+git clone https://github.com/YKesX/emg-ninapro-gesture-recognition.git
+cd emg-ninapro-gesture-recognition
 ```
-#### Create Virtual Environment and Activate
+##### Create virtual environment and activate
 ```sh
 python -m venv venv
 .\venv\Scripts\activate
 ```
-#### Install Dependencies
+##### Install dependencies
 ```sh
 pip install -r requirements.txt
 pip install jupyter
 ```
+##### Run
+```sh
+jupyter notebook
+```
 ### Linux
+##### Clone the repository
+```sh
+git clone https://github.com/YKesX/emg-ninapro-gesture-recognition.git
+cd emg-ninapro-gesture-recognition
+```
+##### Create virtual environment and activate 
+```sh
+python3 -m venv venv
+source venv/bin/activate
+```
+##### Install dependencies 
+```sh
+pip install --upgrade pip
+pip install -r requirements.txt
+pip install jupyter
+```
+##### Run
+```sh
+jupyter notebook
+``` 
 ### MacOS
+##### Clone the repository
+```sh
+git clone https://github.com/YKesX/emg-ninapro-gesture-recognition.git
+cd emg-ninapro-gesture-recognition
+```
+##### Create virtual environment and activate
+```sh
+python3 -m venv venv
+source venv/bin/activate
+```
+##### Install dependencies
+```sh
+pip install -r requirements.txt
+pip install jupyter
+```
+##### Run
+```sh
+jupyter notebook
+```
