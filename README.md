@@ -1,15 +1,7 @@
-# Electromyography(EMG) Hand Gesture Recognition for Prosthetic Control
-![Banner](https://github.com/user-attachments/assets/e6bd554f-0c2d-4894-bba4-ea843808ad7f)
+### Dataset
 
- - [What is EMG Gesture Recognition ?](#What-is-EMG-Gesture-Recognition-?)
- - [Why EMG Gesture Recognition Matters ?](#Why-EMG-Gesture-Recognition-Matters-?) 
-## What is EMG Gesture Recognition ? 
-When the neuromuscular system transmits electrical signals to contract muscles for movement, the detection and analysis of these signals is called _Electromyography (EMG)_. **_EMG Gesture Recognition_** refers to the decoding of neuromuscular signals to classify distinct hand gestures.
-## Why EMG Gesture Recognition Matters ? 
->  **Human-Computer Interaction (HCI)**: Replaces physical controllers with natural muscle input, enabling seamless and immersive interaction in Virtual and Augmented Reality (XR).
- 
->  **Prosthetics Control**: Decodes biological signals to drive bionic limbs, restoring dexterity and allowing amputees to control prosthetics intuitively.
-
->  **Rehabilitation**: Gamifies physical therapy by visualizing muscle engagement, helping patients track their recovery progress with real-time biofeedback.
-
->  **Accessibility**: Empowers individuals with limited mobility or motor impairments to control digital devices using even faint muscle signals.
+We used the NinaPro DB1 dataset for EMG gesture recognition.
+Link: https://www.nina-pro.org/databases/db1/
+Citation: C. Atzori, A. Gijsberts, C. Castellini, B. Caputo, F. Hager, et al.
+"Electromyography data for non-invasive naturally-controlled robotic hand prostheses."
+Scientific Data, 1:140053, 2014.
