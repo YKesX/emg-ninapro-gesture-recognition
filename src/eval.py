@@ -26,12 +26,12 @@ def load_test_data():
         y = np.load(y_path)
         
         _, X_test, _, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-        y_test_encoded = tf.keras.utils.to_categorical(y_test, EvalConfig.NUM_CLASSES)
         
         print(f"Test Data Ready: {X_test.shape}")
-        return X_test, y_test, y_test_encoded
+        return X_test, y_test
     except Exception as e:
-        print(f"Failed to load data. {e}"); return None, None, None
+        print(f"Failed to load data. {e}")
+        return None, None
 
 def load_model(model_path):
     try:
@@ -39,9 +39,10 @@ def load_model(model_path):
         print("Model loaded successfully.")
         return model
     except:
-        print("ERROR: Model file not found."); return None
+        print("ERROR: Model file not found.")
+        return None
 
-def evaluate_model(model, X_test, y_test, y_test_encoded, model_name="1d_cnn"):
+def evaluate_model(model, X_test, y_test, model_name="1d_cnn"):
     print(f"\nEVALUATION: {model_name}")
     y_pred_proba = model.predict(X_test, verbose=0)
     y_pred = np.argmax(y_pred_proba, axis=1)
@@ -68,10 +69,10 @@ def evaluate_single_model(model_name="1d_cnn"):
     model = load_model(f"best_model_{model_name}.keras")
     if model is None: return None
 
-    X_test, y_test, y_encoded = load_test_data()
+    X_test, y_test = load_test_data()
     if X_test is None: return None
 
-    results = evaluate_model(model, X_test, y_test, y_encoded, model_name)
+    results = evaluate_model(model, X_test, y_test, model_name)
     plot_confusion_matrix(results['confusion_matrix'], model_name)
     return results
 
