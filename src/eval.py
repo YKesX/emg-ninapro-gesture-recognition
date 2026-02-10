@@ -30,7 +30,8 @@ def load_test_data():
         print(f"Test Data Ready: {X_test.shape}")
         return X_test, y_test
     except Exception as e:
-        print(f"Failed to load data. {e}"); return None, None
+        print(f"Failed to load data. {e}")
+        return None, None
 
 def load_model(model_path):
     try:
@@ -38,7 +39,8 @@ def load_model(model_path):
         print("Model loaded successfully.")
         return model
     except:
-        print("ERROR: Model file not found."); return None
+        print("ERROR: Model file not found.")
+        return None
 
 def evaluate_model(model, X_test, y_test, model_name="1d_cnn"):
     print(f"\nEVALUATION: {model_name}")
