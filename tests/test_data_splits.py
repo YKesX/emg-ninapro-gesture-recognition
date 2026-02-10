@@ -16,6 +16,9 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 from prepare_data_splits import create_data_splits
 
+# Test constants
+NUM_CLASSES = 13  # Must match TrainingConfig.NUM_CLASSES
+
 
 def test_data_splits():
     """Test that data splits are created correctly and have no overlap."""
@@ -30,7 +33,7 @@ def test_data_splits():
         # Create synthetic data (1000 samples, 20 timesteps, 10 features)
         n_samples = 1000
         X_synthetic = np.random.randn(n_samples, 20, 10)
-        y_synthetic = np.random.randint(0, 13, size=n_samples)
+        y_synthetic = np.random.randint(0, NUM_CLASSES, size=n_samples)
         
         # Save synthetic data
         x_path = os.path.join(data_dir, 'X_train.npy')
