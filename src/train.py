@@ -25,7 +25,6 @@ class TrainingConfig:
     
     BATCH_SIZE = 32
     EPOCHS = 50
-    VALIDATION_SPLIT = 0.2
     EARLY_STOPPING_PATIENCE = 10
     INPUT_SHAPE = (20, 10)  
     NUM_CLASSES = 13        
@@ -34,37 +33,47 @@ def load_real_data():
     
     print("Loading data from disk...")
     
-    x_path = 'data/processed/X_train.npy'
-    y_path = 'data/processed/y_train.npy'
+    # Try to load pre-split data first (preferred)
+    x_train_path = 'data/processed/X_train_split.npy'
+    y_train_path = 'data/processed/y_train_split.npy'
+    x_val_path = 'data/processed/X_val_split.npy'
+    y_val_path = 'data/processed/y_val_split.npy'
     
-    if not os.path.exists(x_path):
-        
-        x_path = '../data/processed/X_train.npy'
-        y_path = '../data/processed/y_train.npy'
-        if not os.path.exists(x_path):
-             print(f"ERROR: '{x_path}' not found!"); return None, None, None
+    if not os.path.exists(x_train_path):
+        x_train_path = '../data/processed/X_train_split.npy'
+        y_train_path = '../data/processed/y_train_split.npy'
+        x_val_path = '../data/processed/X_val_split.npy'
+        y_val_path = '../data/processed/y_val_split.npy'
+        if not os.path.exists(x_train_path):
+            print(f"ERROR: Split data not found at '{x_train_path}'!")
+            print("Please run prepare_data_splits.py first to create the splits.")
+            return None, None, None, None, None, None
 
-    X = np.load(x_path)
-    y = np.load(y_path) 
+    X_train = np.load(x_train_path)
+    y_train = np.load(y_train_path)
+    X_val = np.load(x_val_path)
+    y_val = np.load(y_val_path)
     
-    y_encoded = tf.keras.utils.to_categorical(y, TrainingConfig.NUM_CLASSES)
+    y_train_encoded = tf.keras.utils.to_categorical(y_train, TrainingConfig.NUM_CLASSES)
+    y_val_encoded = tf.keras.utils.to_categorical(y_val, TrainingConfig.NUM_CLASSES)
     
-    print(f"Data Loaded: {X.shape}")
-    return X, y_encoded, y
+    print(f"Train Data Loaded: {X_train.shape}")
+    print(f"Validation Data Loaded: {X_val.shape}")
+    return X_train, y_train_encoded, y_train, X_val, y_val_encoded, y_val
 
 def train_model(model_name="1d_cnn"):
     print(f"\n{'='*60}\nPreparing Model: {model_name}\n{'='*60}")
     
-    X_data, y_data_encoded, y_integers = load_real_data()
-    if X_data is None: return None, None
+    X_train, y_train_encoded, y_train_integers, X_val, y_val_encoded, y_val_integers = load_real_data()
+    if X_train is None: return None, None
 
     # Class Weights
     print("Calculating Class Weights...")
-    unique_classes = np.unique(y_integers)
+    unique_classes = np.unique(y_train_integers)
     class_weights = class_weight.compute_class_weight(
         class_weight='balanced',
         classes=unique_classes,
-        y=y_integers
+        y=y_train_integers
     )
     class_weights_dict = dict(enumerate(class_weights))
 
@@ -82,10 +91,10 @@ def train_model(model_name="1d_cnn"):
 
     print(f"\nStarting Training... (Epochs: {TrainingConfig.EPOCHS})")
     history = model.fit(
-        X_data, y_data_encoded,
+        X_train, y_train_encoded,
         batch_size=TrainingConfig.BATCH_SIZE,
         epochs=TrainingConfig.EPOCHS,
-        validation_split=TrainingConfig.VALIDATION_SPLIT,
+        validation_data=(X_val, y_val_encoded),
         callbacks=callbacks,
         class_weight=class_weights_dict, 
         verbose=1

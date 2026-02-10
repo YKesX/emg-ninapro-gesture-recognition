@@ -3,7 +3,6 @@ import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, f1_score, confusion_matrix, classification_report
 
 class EvalConfig:
@@ -14,18 +13,21 @@ class EvalConfig:
 def load_test_data():
     print("Preparing test data...")
     
-    x_path = 'data/processed/X_train.npy'
-    y_path = 'data/processed/y_train.npy'
+    x_path = 'data/processed/X_test_split.npy'
+    y_path = 'data/processed/y_test_split.npy'
     
     if not os.path.exists(x_path):
-         x_path = '../data/processed/X_train.npy'
-         y_path = '../data/processed/y_train.npy'
+         x_path = '../data/processed/X_test_split.npy'
+         y_path = '../data/processed/y_test_split.npy'
+         if not os.path.exists(x_path):
+             print(f"ERROR: Test split not found at '{x_path}'!")
+             print("Please run prepare_data_splits.py first to create the splits.")
+             return None, None, None
 
     try:
-        X = np.load(x_path)
-        y = np.load(y_path)
+        X_test = np.load(x_path)
+        y_test = np.load(y_path)
         
-        _, X_test, _, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
         y_test_encoded = tf.keras.utils.to_categorical(y_test, EvalConfig.NUM_CLASSES)
         
         print(f"Test Data Ready: {X_test.shape}")
