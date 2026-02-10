@@ -22,13 +22,11 @@ def load_test_data():
          if not os.path.exists(x_path):
              print(f"ERROR: Test split not found at '{x_path}'!")
              print("Please run prepare_data_splits.py first to create the splits.")
-             return None, None, None
+             return None, None
 
     try:
         X_test = np.load(x_path)
         y_test = np.load(y_path)
-        
-        y_test_encoded = tf.keras.utils.to_categorical(y_test, EvalConfig.NUM_CLASSES)
         
         print(f"Test Data Ready: {X_test.shape}")
         return X_test, y_test
