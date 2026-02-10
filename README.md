@@ -20,5 +20,19 @@ When the neuromuscular system transmits electrical signals to contract muscles f
 
 ## Setup
 ### Windows
+#### Clone the repository
+```sh
+git clone https://github.com/YKesX/emg-ninapro-gesture-recognition.gitcd emg-ninapro-gesture-recognition
+```
+#### Create Virtual Environment and Activate
+```sh
+python -m venv venv
+.\venv\Scripts\activate
+```
+#### Install Dependencies
+```sh
+pip install -r requirements.txt
+pip install jupyter
+```
 ### Linux
 ### MacOS
