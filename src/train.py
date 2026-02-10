@@ -1,7 +1,21 @@
 import os
 import numpy as np
-import tensorflow as tf
-import matplotlib.pyplot as plt
+try:
+    import tensorflow as tf
+except ImportError as exc:
+    raise ImportError(
+        "TensorFlow is required to run training. "
+        "Please install it, for example with:\n\n"
+        "    pip install tensorflow\n"
+    ) from exc
+try:
+    import matplotlib.pyplot as plt
+except ImportError as exc:
+    raise ImportError(
+        "matplotlib is required to plot training history. "
+        "Please install it, for example with:\n\n"
+        "    pip install matplotlib\n"
+    ) from exc
 from sklearn.utils import class_weight
 
 from models import get_1d_cnn_model, get_cnn_bilstm_model
